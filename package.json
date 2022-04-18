@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "node dist/index.js",
-    "server": "nodemon dist/index.js",
+    "server": "node dist/index.js",
+    "build": "nodemon dist/index.js",
     "start": "ts-node src/index.ts",
     "dev": "nodemon --exec ts-node src/index.ts",
     "watch": "tsc -w"
