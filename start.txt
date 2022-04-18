@@ -1,0 +1,70 @@
+import { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { ApolloServer, gql } from 'apollo-server-express';
+// import { buildSchema } from 'type-graphql';
+// import { AuthResolvers } from './resolvers/AuthResolvers';
+
+
+
+//typeDefs
+const typeDefs = gql`
+  type User {
+    id: String!
+    username: String!
+    email: String!
+    password: String!
+  }
+
+  type Query {
+    users: [User]!
+  }
+
+  type Muation {
+    createUser(username: String! email: String! password: String!): User
+  }
+`
+// interface InputArgs {
+//   username: string
+//   email: string
+//   password: string
+// }
+
+const users = [
+  {id: '123', username: 'Loki', email: 'rixnickz@gmail.com', password: 'abcd'}
+]
+
+const resolvers = {
+  Query: {
+    users: () => users
+  },
+
+  // Mutation: {
+  //   createUser: (_: any, args: InputArgs) => {
+  //     const { username, email, password} = args;
+
+  //     const newUser = {
+  //       id: '145',
+  //       username,
+  //       email,
+  //       password
+  //     }
+
+  //     users.push(newUser);
+
+  //     return newUser;
+  //   }
+  // }
+}
+
+export default async() => {
+  return new ApolloServer({ 
+    typeDefs, 
+    resolvers, 
+      plugins: [
+      process.env.NODE_ENV === "production"
+      ?
+      ApolloServerPluginLandingPageLocalDefault()
+      :
+      ApolloServerPluginLandingPageGraphQLPlayground()
+    ],
+  })
+}
