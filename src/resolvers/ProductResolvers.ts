@@ -5,9 +5,6 @@ import { isAuthenticated } from "../utils/authHandler";
 import { UserModel } from "../entities/User";
 
 
-
-
-
 @Resolver()
 export class ProductResolvers {
 
