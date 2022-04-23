@@ -2,6 +2,7 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginLandingPageLocalDefault,
 } from "apollo-server-core";
+
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { AuthResolvers } from "./resolvers/AuthResolvers";

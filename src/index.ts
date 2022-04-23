@@ -5,8 +5,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParse from 'cookie-parser';
 // import socketIO from 'socket.io';
-// import redis from 'redis';
 // import cors from 'cors';
+import { createClient } from 'redis';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -20,7 +20,6 @@ import apolloServer from './apolloServer';
 //Config Socket.IO & Redis on node graphql Server
 
 
-// const io = socketIO(apolloServer);
 
 const startServer = async () => {
   //Databse Connection
@@ -30,6 +29,15 @@ const startServer = async () => {
   //App Middleware
   app.use(cookieParse());
   // app.use(cors());
+
+
+   //Redis Cache Connecting
+   const client = createClient();
+   client.on("error", (err) => console.log("Redis Client Error", err));
+   await client.connect();
+   await client.set("key", "value");
+   const value = await client.get("key");
+   console.log("Redis value Connected...", value);
 
 
   //Create apolloserver
